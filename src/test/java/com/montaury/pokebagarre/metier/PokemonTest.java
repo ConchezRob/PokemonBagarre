@@ -1,16 +1,19 @@
 package com.montaury.pokebagarre.metier;
 
+import com.montaury.pokebagarre.fixtures.ConstructeurDePokemon;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @brief Tests unitaires pour la classe Pokemon
  * @details Cette classe permet de tester la fonction estVainqueurContre de la classe Pokemon
  */
 class PokemonTest {
+
 
 
     /**
@@ -20,14 +23,14 @@ class PokemonTest {
     @Test
     void pokemon1_estVainqueurContre_pokemon2_par_attaque() {
         //GIVEN
-        Pokemon pokemon1 = new Pokemon("Pikachu", "", new Stats(10, 10));
-        Pokemon pokemon2 = new Pokemon("Bulbizarre", "", new Stats(5, 5));
+        Pokemon pokemon1 = new ConstructeurDePokemon().avecAttaque(10).avecDefense(5).construire();
+        Pokemon pokemon2 = new ConstructeurDePokemon().avecAttaque(5).avecDefense(5).construire();
 
         //WHEN
         boolean result = pokemon1.estVainqueurContre(pokemon2);
 
         //THEN
-        assertTrue(result);
+        assertThat(result).isTrue();
     }
 
     /**
@@ -37,14 +40,14 @@ class PokemonTest {
     @Test
     void pokemon1_estVainqueurContre_pokemon2_par_attaque_eqale_defense_superieur(){
         //GIVEN
-        Pokemon pokemon1 = new Pokemon("Pikachu", "", new Stats(10, 10));
-        Pokemon pokemon2 = new Pokemon("Bulbizarre", "", new Stats(10, 5));
+        Pokemon pokemon1 = new ConstructeurDePokemon().avecAttaque(10).avecDefense(10).construire();
+        Pokemon pokemon2 = new ConstructeurDePokemon().avecAttaque(10).avecDefense(5).construire();
 
         //WHEN
         boolean result = pokemon1.estVainqueurContre(pokemon2);
 
         //THEN
-        assertTrue(result);
+        assertThat(result).isTrue();
     }
 
     /**
@@ -54,14 +57,14 @@ class PokemonTest {
     @Test
     void pokemon1_perdant_contre_pokemon2_par_attaque(){
         //GIVEN
-        Pokemon pokemon1 = new Pokemon("Pikachu", "", new Stats(5, 5));
-        Pokemon pokemon2 = new Pokemon("Bulbizarre", "", new Stats(10, 10));
+        Pokemon pokemon1 = new ConstructeurDePokemon().avecAttaque(5).avecDefense(5).construire();
+        Pokemon pokemon2 = new ConstructeurDePokemon().avecAttaque(10).avecDefense(5).construire();
 
         //WHEN
         boolean result = pokemon1.estVainqueurContre(pokemon2);
 
         //THEN
-        assertFalse(result);
+        assertThat(result).isFalse();
     }
 
     /**
@@ -71,14 +74,14 @@ class PokemonTest {
     @Test
     void pokemon1_perdant_contre_pokemon2_par_attaque_egal_defense_inferieur(){
         //GIVEN
-        Pokemon pokemon1 = new Pokemon("Pikachu", "", new Stats(10, 5));
-        Pokemon pokemon2 = new Pokemon("Bulbizarre", "", new Stats(10, 10));
+        Pokemon pokemon1 = new ConstructeurDePokemon().avecAttaque(10).avecDefense(5).construire();
+        Pokemon pokemon2 = new ConstructeurDePokemon().avecAttaque(10).avecDefense(10).construire();
 
         //WHEN
         boolean result = pokemon1.estVainqueurContre(pokemon2);
 
         //THEN
-        assertFalse(result);
+        assertThat(result).isFalse();
     }
 
     /**
@@ -88,13 +91,13 @@ class PokemonTest {
     @Test
     void pokemon1_gagnant_contre_pokemon2_par_attaque_egal_defense_egal(){
         //GIVEN
-        Pokemon pokemon1 = new Pokemon("Pikachu", "", new Stats(10, 10));
-        Pokemon pokemon2 = new Pokemon("Bulbizarre", "", new Stats(10, 10));
+        Pokemon pokemon1 = new ConstructeurDePokemon().avecAttaque(10).avecDefense(10).construire();
+        Pokemon pokemon2 = new ConstructeurDePokemon().avecAttaque(10).avecDefense(10).construire();
 
         //WHEN
         boolean result = pokemon1.estVainqueurContre(pokemon2);
 
         //THEN
-        assertTrue(result);
+        assertThat(result).isTrue();
     }
 }
