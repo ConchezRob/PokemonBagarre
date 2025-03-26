@@ -19,6 +19,9 @@ javafx {
 test {
   useJUnitPlatform()
   finalizedBy jacocoTestReport // report is always generated after tests run
+  systemProperties['java.awt.headless'] = true
+  systemProperties['testfx.robot'] = 'glass'
+  systemProperties['testfx.headless'] = 'true
 }
 jacocoTestReport {
   dependsOn test // tests are required to run before generating the report
@@ -76,8 +79,5 @@ java {
   }
 }
 
-systemProperties['java.awt.headless'] = true
-systemProperties['testfx.robot'] = 'glass'
-systemProperties['testfx.headless'] = 'true
 
 mainClassName = 'com.montaury.pokebagarre.Main'
